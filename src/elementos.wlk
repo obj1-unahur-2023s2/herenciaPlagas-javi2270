@@ -8,6 +8,7 @@ class Hogar {
 	
 	method recibirAtaque(plaga) {
 		nivelDeMugre += plaga.nivelDeDanio()
+		plaga.ataqueDePlaga()
 	}
 
 }
@@ -19,8 +20,11 @@ class Huerta {
 	method esBueno() = capacidadDeProduccion > nivel
 	
 	method recibirAtaque(plaga) {
-		capacidadDeProduccion -= if (plaga.trasmiteEnfermedades()) {(plaga.nivelDeDanio() * 0.1) + 10 }
-								 else {plaga.nivelDeDanio() * 0.1}
+		capacidadDeProduccion = if (plaga.trasmiteEnfermedades()) 
+									{0.max(capacidadDeProduccion - (plaga.nivelDeDanio() * 0.1 + 10)) }
+								else 
+									{0.max(capacidadDeProduccion - plaga.nivelDeDanio() * 0.1)}
+		plaga.ataqueDePlaga()
 	}
 	
 }
@@ -31,7 +35,10 @@ class Mascota {
 	method esBueno() = nivelDeSalud > 250
 	
 	method recibirAtaque(plaga) {
-		nivelDeSalud -= if (plaga.trasmiteEnfermedades()) {plaga.nivelDeDanio()} else {0}
+		nivelDeSalud = if (plaga.trasmiteEnfermedades())
+					   		{0.max(nivelDeSalud - plaga.nivelDeDanio())} 
+					   else {0}
+		plaga.ataqueDePlaga()
 	}
 
 }
