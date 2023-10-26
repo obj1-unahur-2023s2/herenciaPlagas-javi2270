@@ -9,7 +9,7 @@ class Plaga {
 	}
 	
 	method nivelDeDanio()
-	method trasmitenEnfermedades()
+	
 }
 
 class Cucarachas inherits Plaga {
