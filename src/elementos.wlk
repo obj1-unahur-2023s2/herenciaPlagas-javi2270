@@ -1,16 +1,18 @@
 import plagas.*
 
 class Elemento {
+	
+	method esBueno()
 	method recibirAtaque(unaPlaga) {
 		unaPlaga.efectosDelAtaque()
 	}
 }
 
 class Hogar inherits Elemento {
-	var property nivelDeMugre // int
-	const confort	   // int	
+	var nivelDeMugre // int
+	var confort	   // int	
 	
-	method esBueno() = nivelDeMugre <= (confort / 2)
+	override method esBueno() = nivelDeMugre <= (confort / 2)
 	
 	override method recibirAtaque(unaPlaga) {
 		nivelDeMugre += unaPlaga.nivelDeDanio()
@@ -20,10 +22,10 @@ class Hogar inherits Elemento {
 }
 
 class Huerta inherits Elemento {
-	var property capacidadDeProduccion // int
-	var nivel 
+	var capacidadDeProduccion // int
+	const nivel 
 	
-	method esBueno() = capacidadDeProduccion > nivel
+	override method esBueno() = capacidadDeProduccion > nivel
 	
 	override method recibirAtaque(unaPlaga) {
 		capacidadDeProduccion = if (unaPlaga.trasmiteEnfermedades()) 
@@ -38,7 +40,7 @@ class Huerta inherits Elemento {
 class Mascota inherits Elemento {
 	var property nivelDeSalud // int
 	
-	method esBueno() = nivelDeSalud > 250
+	override method esBueno() = nivelDeSalud > 250
 	
 	override method recibirAtaque(unaPlaga) {
 		nivelDeSalud = if (unaPlaga.trasmiteEnfermedades())
